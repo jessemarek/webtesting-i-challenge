@@ -1,5 +1,5 @@
 const enhancer = require('./enhancer.js');
-const { repair } = require('./enhancer.js');
+const { repair, succeed } = require('./enhancer.js');
 // test away!
 describe('item enhancer', () => {
     it('runs tests', () => {
@@ -22,6 +22,32 @@ describe('item enhancer', () => {
 
             expect(repair(item)).not.toBe(item)
             expect(repair(item)).toEqual(repairedItem)
+        })
+    })
+
+    describe('test succeed(item)', () => {
+        it('returns new item with successful enhancement', () => {
+            const item = {
+                name: 'item',
+                durability: 100,
+                enhancement: 0
+            }
+
+            const enhancedItem = {
+                name: 'item',
+                durability: 100,
+                enhancement: 1
+            }
+
+            const maxedItem = {
+                name: 'item',
+                durability: 100,
+                enhancement: 20
+            }
+
+            expect(succeed(item)).not.toBe(item)
+            expect(succeed(item)).toEqual(enhancedItem)
+            expect(succeed(maxedItem)).toEqual(maxedItem)
         })
     })
 })
