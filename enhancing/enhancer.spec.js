@@ -1,5 +1,5 @@
 const enhancer = require('./enhancer.js');
-const { repair, succeed, fail } = require('./enhancer.js');
+const { repair, succeed, fail, get } = require('./enhancer.js');
 // test away!
 describe('item enhancer', () => {
     it('runs tests', () => {
@@ -100,6 +100,41 @@ describe('item enhancer', () => {
 
             expect(fail(e16_orMore)).not.toBe(e16_orMore)
             expect(fail(e16_orMore)).toEqual(e16_orMore_fail)
+        })
+    })
+
+    //Upgrade name test
+    describe('test get(item)', () => {
+        it('returns new item with name change based on enhancement level', () => {
+            const item = {
+                name: 'Broadsword',
+                durability: 100,
+                enhancement: 0
+            }
+
+            const noChange = {
+                name: 'Broadsword',
+                durability: 100,
+                enhancement: 0
+            }
+
+            const enhancedItem = {
+                name: 'Broadsword',
+                durability: 100,
+                enhancement: 7
+            }
+
+            const nameChanged = {
+                name: '[+7] Broadsword',
+                durability: 100,
+                enhancement: 7
+            }
+
+            expect(get(item)).not.toBe(item)
+            expect(get(noChange)).toEqual(noChange)
+
+            expect(get(item)).not.toBe(item)
+            expect(get(enhancedItem)).toEqual(nameChanged)
         })
     })
 })
